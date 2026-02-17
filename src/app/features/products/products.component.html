@@ -1,0 +1,60 @@
+<section class="py-16">
+    <div class="container xl:w-[95%]">
+        <h3 class="text-3xl font-medium text-[#F83758] pt-3 text-center ">Shop ALL Products</h3>
+        <div class="w-1/2 mx-auto mt-5">
+
+            <div class="relative ">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                            d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+                    </svg>
+                </div>
+                <input type="search" id="search"
+                    class="block w-full p-3 ps-9 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-[#F83758] focus:border-[#F83758] shadow-xs placeholder:text-body"
+                    placeholder="Search" [(ngModel)]="term" />
+            </div>
+        </div>
+
+
+        <div class="parent mt-7 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-3 ">
+            @for (product of allProducts() | paginate: pagination |search:term; track product._id) {
+            <app-card [cardProduct]="product">
+
+                <p class="text-gray-600  text-base  h-25"> {{product.description.split(' ',10).join(' ')}}
+                </p>
+                <h5 class="font-medium pb-3"><span class="font-normal text-md ">Quantity : </span>{{product.quantity}}
+                </h5>
+
+            </app-card>
+            }
+            <!-- @empty {
+            <div class="col-span-full flex items-center justify-center min-h-125">
+                <div class="flex flex-col items-center">
+                    <div class="relative inline-block">
+                        <svg class="w-24 h-24 text-[#F83758]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                        <span class="absolute top-0 left-1/2 -translate-x-1/2 flex h-24 w-24">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-40 bg-[#F83758]"></span>
+                        </span>
+                    </div>
+
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2 mt-4">Loading Products</h3>
+                    <div class="w-48 h-1 bg-gray-200 rounded-full mt-4 overflow-hidden">
+                        <div class="h-full rounded-full animate-pulse bg-[#F83758] w-3/5"></div>
+                    </div>
+                </div>
+            </div>
+            } -->
+        </div>
+        <div class="flex flex-wrap mt-6 justify-center my-pagination">
+            <pagination-controls id="products" (pageChange)="pageChanged($event)">
+            </pagination-controls>
+        </div>
+    </div>
+
+</section>

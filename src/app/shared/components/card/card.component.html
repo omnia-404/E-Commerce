@@ -1,0 +1,28 @@
+<div class="card overflow-hidden flex flex-col h-full cursor-pointer">
+    <div [routerLink]="['/details',cardProduct.slug,cardProduct._id]">
+        <img [src]="cardProduct.imageCover" [alt]="cardProduct.title" title="{{cardProduct.title}}">
+        <div class="flex flex-col h-full">
+
+            <h3 class=" text-sm text-[#F83758] pt-2">{{cardProduct.category.name}}</h3>
+            <h4 class="text-lg py-2"> {{cardProduct.title.split(' ',2).join(' ')}} </h4>
+
+            <ng-content></ng-content>
+            <div class="flex flex-wrap justify-between items-center pb-3">
+                <span>{{cardProduct.price}} EGP</span>
+                <span><i class="fas fa-star text-yellow-400"></i> {{cardProduct.ratingsAverage}}</span>
+            </div>
+
+        </div>
+    </div>
+    <div class=" flex  justify-between items-center gap-3 ">
+
+        <button class="btn-main  w-75 mt-3  " (click)="addProductItemToCart(cardProduct.id)">Add
+            To
+            Cart</button>
+        <div class="bg-white rounded-full border border-red-500 w-10 h-10 flex items-center justify-center mt-3 p-3">
+
+            <button class="cursor-pointer" (click)="addToWishlist(cardProduct.id)"> <i
+                    class="fas fa-heart text-red-500 text-xl"></i></button>
+        </div>
+    </div>
+</div>

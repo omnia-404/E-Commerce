@@ -1,0 +1,167 @@
+<nav class="bg-gray-200  border-b border-default fixed start-0 top-0 w-full z-20">
+    <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <img src="/assets/images/freshcart-logo-red.svg" alt="freshcart-logo">
+        </a>
+        <button data-collapse-toggle="navbar-default" type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+            aria-controls="navbar-default" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
+            </svg>
+        </button>
+        <div class="hidden w-full md:flex md:grow md:w-auto " id="navbar-default">
+            @if (isLogged===true) {
+            <ul
+                class="font-medium ms-5 flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base  md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0 md:border-0">
+                <li>
+                    <a routerLink="/home" class="block py-2 px-3  rounded text-gray-600 md:py-1 md:px-2"
+                        routerLinkActive="bg-[#F83758] text-white p-4 " aria-current="page">
+                        {{'Home'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/products" routerLinkActive="bg-[#F83758] text-white p-4 "
+                        class=" block py-2 px-3 rounded text-gray-600 md:py-1 md:px-2 "
+                        aria-current="page">{{'Products'|translate}}</a>
+                </li>
+                <li>
+                    <a routerLink="/categories" routerLinkActive="bg-[#F83758] text-white p-4 "
+                        class="block py-2 px-3  rounded text-gray-600 md:py-1 md:px-2" aria-current="page">
+                        {{'Categories'|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/brands" class="block py-2 px-3  rounded text-gray-600 md:py-1 md:px-2"
+                        routerLinkActive="bg-[#F83758] text-white p-4 " aria-current="page">{{'Brands'|translate}}</a>
+                </li>
+
+
+            </ul>
+            }
+            <ul
+                class="font-medium ms-auto flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base  md:flex-row md:space-x-4 rtl:space-x-reverse md:mt-0 md:border-0">
+                <li>
+                    <a href="#" class="block py-2 px-1  rounded text-gray-600 md:p-1" aria-current="page">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="block py-2 px-1  rounded text-gray-600 md:p-1" aria-current="page">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="block py-2 px-1  rounded text-gray-600 md:p-1" aria-current="page">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="block py-2 px-1  rounded text-gray-600 md:p-1" aria-current="page">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </li>
+                <!-- ?  Switcher start -->
+                <li>
+                    <div class="relative inline-block text-left">
+                        <!-- Dropdown Button -->
+                        <button (click)="toggleDropdown()" type="button"
+                            class="inline-flex items-center justify-between w-20 gap-3 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                            aria-haspopup="true" [attr.aria-expanded]="isOpen()">
+                            <div class="flex items-center gap-2">
+                                <span class="font-medium">{{ selectedLanguage.code.toUpperCase() }}</span>
+                            </div>
+                            <svg class="w-4 h-4 text-gray-500 transition-transform duration-200"
+                                [class.rotate-180]="isOpen()" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        @if (isOpen()) {
+
+                        <div
+                            class="absolute right-0 z-10 w-48 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 ">
+                            <div class="py-1 " role="menu">
+                                @for (language of languages; track $index) {
+
+                                <button (click)="selectLanguage(language)" type="button"
+                                    class="flex items-center w-full px-4 py-2.5 text-sm text-gray-700 cursor-pointer transition-colors duration-150  rounded-md"
+                                    [class.bg-[#F83758]]="selectedLanguage.code === language.code"
+                                    [class.text-white]="selectedLanguage.code === language.code" role="menuitem">
+                                    <span class="font-medium">{{ language.name }}</span>
+                                    @if (selectedLanguage.code === language.code) {
+
+                                    <svg class="w-4 h-4 ml-auto text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    }
+                                </button>
+                                }
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Overlay to close dropdown when clicking outside -->
+                    @if (isOpen()) {
+
+                    <div (click)="closeDropdown()" class="fixed inset-0 z-0"></div>
+                    }
+                </li>
+                <!-- &  Switcher end -->
+
+                @if (isLogged===false) {
+                <li>
+                    <a href="#" class="block py-2 px-3  rounded text-gray-600 md:py-1 md:px-2" routerLink="/register"
+                        routerLinkActive="bg-[#F83758] text-white p-4 " aria-current="page">
+                        {{"Register"|translate}}
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="block py-2 px-3  rounded text-gray-600 md:py-1 md:px-2" routerLink="/login"
+                        routerLinkActive="bg-[#F83758] text-white p-4 " aria-current="page">
+
+                        {{"Login"|translate}}
+                    </a>
+                </li>
+                }
+                @else {
+
+                <li>
+                    <a routerLink="/wishlist" class="relative block py-2 px-3  rounded text-gray-600 md:py-1 md:px-2 ">
+                        <i class="fa-regular fa-heart text-2xl text-gray-600 hover:text-[#F83758] transition "></i>
+                        <span class="sr-only">Number of whishlist items</span>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/cart" class="relative block py-2 px-3  rounded text-gray-600 md:py-1 md:px-3 ">
+
+                        <i class="fas fa-cart-shopping text-2xl "></i>
+                        <span class="sr-only">Number of cart items</span>
+                        <div
+                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-[#F83758]   rounded-full -top-2 -end-1">
+                            {{count()}}</div>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="block py-2 px-3 ms-2 rounded md:py-1 md:px-3  cursor-pointer bg-[#F83758] text-white"
+                        aria-current="page" (click)="signOut()">
+                        {{"Sign Out"|translate}}
+
+                    </a>
+                </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+</nav>

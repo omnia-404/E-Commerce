@@ -1,3 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+/* ? You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'flowbite/src/themes/default';
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+body {
+  font-family: 'Oswald', sans-serif;
+}
+@utility container {
+  margin-inline: auto;
+}
+@layer components {
+  .btn-main {
+    @apply bg-[#F83758] p-2.5 rounded-[5px] text-white text-base cursor-pointer hover:bg-[#e43b57] transition-[background-color] duration-300 disabled:bg-gray-500 disabled:hover:bg-gray-500 disabled:cursor-not-allowed;
+  }
+  .card {
+    @apply shadow rounded border border-gray-200 p-3;
+  }
+  .main-input {
+    @apply bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-xs focus:ring-[#F83758] focus:border-[#F83758] block w-full px-3 py-2.5 shadow-xs;
+  }
+  .main-label {
+    @apply block mb-1.5 text-sm font-medium text-heading;
+  }
+}

@@ -1,0 +1,31 @@
+<section class="border border-gray-200 bg-gray-200 rounded shadow-xs md:w-1/2 mx-auto my-16 p-4">
+    <div class="">
+        <h2 class="mb-3 text-[#F83758] font-medium text-center text-3xl">Checkout</h2>
+    </div>
+    <form [formGroup]="checkOutForm" (ngSubmit)="onSubmitCheckoutForm()">
+
+        <div class="" formGroupName="shippingAddress">
+            <div class="mb-3 ">
+                <label for="details" class="main-label">Details</label>
+
+                <textarea id="details" class=" main-input" placeholder="Details" formControlName="details"></textarea>
+            </div>
+            <div class="mb-3 ">
+                <label for="phone" class="main-label">Phone</label>
+                <input type="tel" id="phone" class=" main-input" formControlName="phone" />
+            </div>
+            <div class="mb-3 ">
+                <label for="city" class="main-label">City</label>
+                <input type="text" id="city" class=" main-input" formControlName="city" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <button class="btn-main px-3 w-full" type="submit">Pay with Visa
+
+            </button>
+        </div>
+
+    </form>
+
+</section>

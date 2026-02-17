@@ -1,0 +1,135 @@
+<section class="border border-gray-200 bg-gray-200 rounded shadow-xs md:w-1/2 mx-auto mt-16 p-4">
+    <div class="">
+        <h2 class="mb-3 text-[#F83758] font-medium text-center text-3xl">Register Now</h2>
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()">
+        <div class="mb-3 ">
+            @let nameControl=registerForm.get("name");
+            <label for="name" class="main-label">Name</label>
+            <input type="text" id="name" class=" main-input" formControlName="name" />
+
+            @if(nameControl?.errors && nameControl?.touched){
+            <div class="flex px-3 py-2 mt-.5  text-base text-red-800 rounded-xs bg-red-100 border border-danger-subtle"
+                role="alert">
+                <span class="sr-only">Danger</span>
+                <div class="px-3">
+                    <ul class="list-disc list-inside">
+                        @if(nameControl?.getError("required")){
+                        <li>Name Input is required</li>
+                        }
+                        @else if (nameControl?.getError("minlength")) {
+
+                        <li>Name Input should be at least 3 characters</li>
+                        }
+                        @else if (nameControl?.getError("maxlength")) {
+
+                        <li>Name Input should be less than or equal 20 characters</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="mb-3 ">
+            <label for="email" class="main-label">Email</label>
+            <input type="email" id="email" class=" main-input" formControlName="email" />
+
+            @let emailControl=registerForm.get("email");
+            @if (emailControl?.errors && emailControl?.touched) {
+            <div class="flex px-3 py-2 mt-.5  text-base text-red-800 rounded-xs bg-red-100 border border-danger-subtle"
+                role="alert">
+                <span class="sr-only">Danger</span>
+                <div class="px-3">
+                    <ul class="list-disc list-inside">
+                        @if(emailControl?.getError('required')){
+
+                        <li>Email Input is required</li>
+                        }
+                        @else if (emailControl?.getError("email")) {
+
+                        <li>Please enter valid email address</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="mb-3 ">
+            <label for="password" class="main-label">Password</label>
+            <input type="password" id="password" class=" main-input" formControlName="password" />
+
+            @let passwordControl=registerForm.get("password");
+            @if (passwordControl ?.errors && passwordControl?.touched) {
+            <div class="flex px-3 py-2 mt-.5  text-base text-red-800 rounded-xs bg-red-100 border border-danger-subtle"
+                role="alert">
+                <span class="sr-only">Danger</span>
+                <div class="px-3">
+                    <ul class="list-disc list-inside">
+                        @if(passwordControl?.getError('required')){
+
+                        <li>Password Input is required</li>
+                        }
+                        @else if (passwordControl?.getError("pattern")) {
+
+                        <li>Password should be Minimum eight characters, at least one upper case English letter, one
+                            lower case English letter, one number and one
+                            special character</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="mb-3 ">
+            <label for="rePassword" class="main-label">Confirm Password</label>
+            <input type="password" id="rePassword" class=" main-input" formControlName="rePassword" />
+
+            @if (registerForm.getError("misMatch") && registerForm.get("rePassword")?.dirty) {
+            <div class="flex px-3 py-2 mt-.5  text-base text-red-800 rounded-xs bg-red-100 border border-danger-subtle"
+                role="alert">
+                <span class="sr-only">Danger</span>
+                <div class="px-3">
+                    <ul class="list-disc list-inside">
+                        <li>Confirmation Password is incorrect</li>
+                    </ul>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="mb-3 ">
+            <label for="phone" class="main-label">Phone Number</label>
+            <input type="tel" id="phone" class=" main-input" formControlName="phone" />
+
+            @let phoneControl=registerForm.get("phone");
+
+            @if (phoneControl?.errors && phoneControl?.touched) {
+            <div class="flex px-3 py-2 mt-.5  text-base text-red-800 rounded-xs bg-red-100 border border-danger-subtle"
+                role="alert">
+                <span class="sr-only">Danger</span>
+                <div class="px-3">
+                    <ul class="list-disc list-inside">
+                        @if(phoneControl?.getError('required')){
+
+                        <li>Phone Input is required</li>
+                        }
+                        @else if (phoneControl?.getError("pattern")) {
+
+                        <li>Please enter egyptian phone number</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="flex flex-wrap justify-end">
+            <button class="btn-main px-3" type="submit">Register
+                @if (isLoading()) {
+
+                <span><i class="fas fa-spinner animate-spin"></i></span>
+                }
+            </button>
+        </div>
+
+    </form>
+
+</section>

@@ -1,0 +1,159 @@
+<section class="py-16 bg-gray-100">
+    <div class="container xl:w-[95%]">
+        <h1 class="text-center mb-8 py-2 text-2xl text-white bg-[#F83758]">My Cart</h1>
+        @if (cartDetailsData().products && cartDetailsData().products.length >0) {
+        <div class="parent grid sm:grid-cols-12 gap-8">
+
+            <div class="col-span-8 ">
+                <div class="rounded bg-white py-4 px-10 border border-gray-200 border-t-[#F83758] border-t-4">
+                    <div class="border-b border-[#F83758] py-3 grid sm:grid-cols-12">
+                        <h3 class="text-lg  text-gray-700 col-span-6">Product</h3>
+                        <h3 class="text-lg  text-gray-700 text-center col-span-2">Price</h3>
+                        <h3 class="text-lg  text-gray-700 text-center col-span-2">Quantity</h3>
+                        <h3 class="text-lg  text-gray-700 text-center col-span-2">Total</h3>
+                    </div>
+                    <!-- ? -->
+                    @for (item of cartDetailsData().products; track item.product.id) {
+                    <div class="Products-Container  gap-3 mt-5 py-2 bg-gray-100 rounded-lg border border-gray-200 ">
+                        <div class="">
+
+                            <div class="grid sm:grid-cols-12 ps-3">
+
+                                <div class="col-span-6">
+
+                                    <div class="flex flex-wrap gap-4 ">
+
+                                        <div class="">
+                                            <img class="w-25 rounded-2xl" [src]="item.product.imageCover"
+                                                [alt]="item.product.title">
+
+                                        </div>
+
+                                        <div class="flex gap-y-8 flex-col ">
+                                            <div class="mt-5">
+
+                                                <h3>{{item.product.title}}</h3>
+                                            </div>
+                                            <div class="">
+                                                <button class="  text-gray-500 cursor-pointer"
+                                                    (click)="removeProduct(item.product.id)"><span><i
+                                                            class="fa fa-trash-can text-[#F83758]"></i></span>
+                                                    Remove</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-span-2 content-center">
+                                    <h4 class="text-center mt-1">{{item.price |currency:'GBP'}}</h4>
+                                </div>
+                                <div class="col-span-2 flex justify-center items-center">
+                                    <div class=" bg-gray-200 rounded-xl py-2 px-3 text-center ">
+                                        <button (click)="updateProductCount(item.product.id,item.count-1)"><i
+                                                class="fas fa-minus cursor-pointer"></i></button>
+                                        <span class="mx-3">{{item.count}}</span>
+                                        <button (click)="updateProductCount(item.product.id,item.count+1)"><i
+                                                class="fas fa-plus cursor-pointer"></i></button>
+                                    </div>
+                                </div>
+                                <div class="col-span-2 content-center">
+                                    <div>
+                                        <h4 class="text-center mt-1">{{item.price*item.count |currency:'GBP'}}</h4>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    }
+
+
+                </div>
+
+                <div class="pt-8 pb-4 ">
+                    <button (click)="clearCart()"
+                        class="text-center bg-[#F83758] text-md px-10 py-3 rounded-xl  text-white cursor-pointer">Clear
+                        My Cart
+                    </button>
+
+                </div>
+
+            </div>
+            <div class="col-span-4">
+                <div class="rounded bg-white p-4 border border-gray-200 border-t-[#F83758] border-t-4">
+                    <div class="border-b border-[#F83758] py-3">
+
+                        <h2 class="text-xl text-gray-700">Order Summary</h2>
+                    </div>
+                    <div class="details py-6">
+                        <div class=" flex justify-between">
+                            <h4 class="text-gray-500 text-lg">SubTotal</h4>
+                            <span class="text-gray-700">{{cartDetailsData().totalCartPrice |currency:'GBP'}}</span>
+                        </div>
+                        <div class="flex flex-nowrap py-10">
+                            <h4 class="text-gray-500 text-lg">Shipping</h4>
+                            <div class="ps-3 flex flex-col ">
+                                <div>
+
+                                    <input type="radio" id="opt1" name="shipping" [value]="50"
+                                        [(ngModel)]="shippingPrice" />
+                                    <label for="opt1" class="ps-2 text-sm hover:text-[#F83758] transition ">Standard
+                                        Delivery - 50 EGP</label>
+                                </div>
+                                <div>
+
+                                    <input type="radio" id="opt2" name="shipping" [value]="80"
+                                        [(ngModel)]="shippingPrice" />
+                                    <label for="opt2" class="ps-2 text-sm hover:text-[#F83758] transition">Express
+                                        Delivery - 80 EGP </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class=" flex justify-between">
+                            <h4 class="text-gray-500 pt-1 text-lg">Discount</h4>
+                            <span class="text-gray-700 bg-[#ffc0ca] py-2 px-3 rounded-2xl">-0.00</span>
+                        </div>
+
+                        <div
+                            class="w-75 mx-auto bg-[#ffeaf1] py-6 mt-7 text-center flex justify-between px-4 rounded-xl border border-gray-600">
+                            <h2 class="text-xl text-gray-700">Total: </h2>
+                            <span class="text-2xl text-gray-800">{{cartDetailsData().totalCartPrice +
+                                shippingPrice |currency:'GBP'}}</span>
+                        </div>
+
+                        <div class="mt-8 flex justify-center items-center flex-wrap gap-y-5">
+                            <button [routerLink]="['/checkout',cartDetailsData()._id]"
+                                class="text-center bg-[#F83758] text-lg px-15 py-4 rounded-3xl text-white cursor-pointer">Proceed
+                                To Checkout
+                                <span class="ms-2 text-base"><i
+                                        class="fa-solid fa-arrow-right-long"></i></span></button>
+
+                            <button routerLink="/home"
+                                class="text-center bg-gray-50 text-lg px-16 py-4 rounded-3xl text-[#F83758] cursor-pointer border-2 border-[#F83758]">
+                                <span class="me-2 text-base"><i class="fa-solid fa-arrow-left-long"></i></span>
+                                Continue
+                                Shopping </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+        @if (cartDetailsData().products && cartDetailsData().products.length === 0) {
+        <div class="mx-auto w-75 p-5">
+            <p class="text-center mb-10 text-2xl text-[#21325B]"><span class="text-[#F83758] fw-bold">Ooops!</span>
+                Your Cart is
+                empty</p>
+
+            <img class="w-100 " src="/assets/images/oc-empty-cart.svg" alt="Empty cart Logo">
+        </div>
+        }
+    </div>
+</section>

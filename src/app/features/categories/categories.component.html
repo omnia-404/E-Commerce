@@ -1,0 +1,18 @@
+<section class="py-16">
+    <div class="container xl:w-[95%]">
+        <h3 class="text-3xl font-medium text-[#F83758] pt-3 text-center ">Shop ALL Categories</h3>
+        <div class="parent mt-7 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-3  ">
+            @for (category of productsCategories(); track category._id) {
+            <div class="px-4">
+                <div class="my-2">
+                    <img class="w-full h-100 " [src]="category.image" [alt]="category.name" [title]="category.name">
+                </div>
+                <h3 class=" pt-2 text-[#F83758] text-center text-xl"> {{category.name}}</h3>
+            </div>
+            }
+        </div>
+
+
+    </div>
+
+</section>

@@ -1,0 +1,66 @@
+<section class="pb-16 pt-10 bg-gray-100">
+    <div class="container xl:w-[90%] p-9">
+        <h2 class="text-3xl font-semibold pb-16 text-red-500 text-center">My Wishlist</h2>
+        @if (wishlistItems().length>0) {
+        <div class=" ">
+
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="border-b-2 border-gray-400">
+                        <th class="py-4 px-6 text-center w-2/5 ">Product</th>
+                        <th class="py-4 px-6 text-left w-1/5">Price</th>
+                        <th class="py-4 px-6 text-left w-1/5">Available in stock</th>
+                        <th class="py-4 px-6 text-left w-1/5"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (item of wishlistItems(); track item._id) {
+
+                    <tr class="border-b border-gray-300">
+                        <td class="py-6 ps-2 w-2/5">
+                            <div class="flex items-center gap-5 content-center w-full">
+                                <button class="text-xl text-red-500 cursor-pointer" (click)="removeItem(item._id)">
+                                    <i class="fas fa-trash-can"></i>
+                                </button>
+                                <div class=" flex items-center ms-8 gap-3 ">
+
+                                    <img [src]="item.imageCover" [alt]="item.title" class="w-18.75">
+                                    <h2>{{item.title}}</h2>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-6 px-6 w-1/5">
+                            <span>{{item.price |currency:'GBP' }} </span>
+                        </td>
+                        <td class="py-6 px-6 w-1/5 ">
+                            <h4>{{item.quantity}} Items
+                            </h4>
+
+                        </td>
+                        <td class="py-6 px-6 w-1/5">
+                            <button class="btn-main  w-3/4 mt-3  " (click)="addProductItemToCart(item._id)">Add
+                                To
+                                Cart</button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        }
+        @else if (wishlistItems().length===0 ) {
+
+        <div class="text-center w-150 mx-auto my-18">
+            <img src="/assets/images/empty-wishlist.png" alt="empty wishlist image">
+        </div>
+        }
+
+
+    </div>
+
+
+
+
+</section>

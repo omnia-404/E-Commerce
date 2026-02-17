@@ -1,0 +1,24 @@
+<section class="pb-16 bg-gray-100">
+    <div class="container xl:w-[95%]">
+        <h3 class="text-2xl font-medium text-[#F83758] pt-3">Shop Popular Categories</h3>
+
+        <div class="mt-6">
+
+            <owl-carousel-o [options]="CategoriesCustomOptions">
+
+                @for (category of categoriesList(); track category._id) {
+                <ng-template carouselSlide [id]="category._id">
+                    <div class=" ">
+                        <div class="my-2">
+                            <img class="w-60 h-60 rounded-full" [src]="category.image" [alt]="category.name"
+                                [title]="category.name">
+                        </div>
+                        <h3 class=" pt-2 text-[#F83758] text-center"> {{category.name}}</h3>
+                    </div>
+                </ng-template>
+                }
+
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>
