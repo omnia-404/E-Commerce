@@ -52,7 +52,7 @@ export class CartService {
     const returnUrl = window.location.origin;
     return this.httpClient.post<PaymentResponse>(
       `${environment.base_url}orders/checkout-session/${cartId}?url=${encodeURIComponent(returnUrl)}`,
-      addressInfo,
+      { shippingAddress: addressInfo },
     );
   }
 }
