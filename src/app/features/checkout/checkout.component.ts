@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../cart/services/cart.service';
+import { AuthService } from '../../core/auth/Services/Authentication/auth.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
@@ -13,6 +15,7 @@ export class CheckoutComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly fb = inject(FormBuilder);
   private readonly cartService = inject(CartService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   cartID: string | null = null;
   ngOnInit(): void {
@@ -37,7 +40,9 @@ export class CheckoutComponent {
       this.cartService.checkoutSession(this.cartID, this.checkOutForm.value).subscribe({
         next: (res) => {
           if (res.status === 'success') {
-            window.open(res.session.url, '_self');
+            if (isPlatformBrowser(this.platformId)) {
+              window.open(res.session.url, '_self');
+            }
           }
         },
         error: (err) => {

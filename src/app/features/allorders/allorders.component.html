@@ -1,1 +1,91 @@
-<p>allorders works!</p>
+<section class="py-13 min-h-screen">
+    @if (ordersList().length >0) {
+
+    <div class="container xl:w-[90%]">
+        <div class="bg-[#F83758] w-full py-16 px-12  rounded-md">
+
+            <h1 class="text-5xl font-bold text-white mb-2">My Orders</h1>
+            <p class="text-white/70 text-base">Track all your purchases in one place.</p>
+
+            <div class="flex flex-col mt-9">
+                <span class="text-4xl font-bold text-white">{{ordersList().length}}</span>
+                <span class="text-white/70 text-md mt-1">Total Orders</span>
+            </div>
+        </div>
+        <!-- Orders -->
+        <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col gap-6">
+            @for (order of ordersList(); track order._id) {
+
+            <div
+                class="bg-white rounded-2xl border border-gray-300 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
+                <div class="flex items-center justify-between px-7 py-5 bg-gray-200 border-b border-gray-300">
+                    <div class="flex items-center gap-6">
+                        <span class="font-bold text-gray-900 text-lg">Order #{{order._id.slice(0,4)}}</span>
+                        <span class="flex items-center gap-2 text-xs text-gray-500">
+                            <i class="fa-regular fa-calendar text-base pt-1"></i>
+                            {{order.createdAt|date:"short"}}
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="flex items-center gap-1 px-3 py-1 rounded-full text-[12px] font-semibold bg-[#F83758]/10 text-[#F83758]">
+                            Paid : {{order.isPaid}}
+                            <i class="fas fa-check"></i>
+
+                        </span>
+                        <span
+                            class="flex items-center gap-1 px-3 py-1 rounded-full text-[12px] font-semibold bg-amber-50 text-amber-700">
+                            <i class="fas fa-hourglass-1"></i>
+                            Deliverd : {{order.isDelivered}}</span>
+                        <span
+                            class="flex items-center gap-1 px-3 py-1 rounded-full text-[12px] font-semibold bg-purple-50 text-purple-700">
+                            <i class="fas fa-credit-card pt-1"></i>
+                            {{order.paymentMethodType}}</span>
+                    </div>
+                </div>
+
+                <div class="px-7 py-6 flex flex-wrap gap-3">
+                    @for (item of order.cartItems; track item._id) {
+                    <div
+                        class="flex items-center gap-2.5 bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 hover:border-[#F83758]/50 transition-colors">
+                        <img [src]="item.product.imageCover" class="w-11 h-11 rounded-lg object-cover"
+                            [alt]="item.product.title" />
+                        <div class="flex flex-col">
+                            <span
+                                class="text-xs font-medium text-gray-800 max-w-35 truncate">{{item.product.title}}</span>
+                            <span class="text-[11px] text-gray-500 mt-0.5">
+                                <span
+                                    class="bg-[#F83758]/10 text-[#F83758] font-semibold px-1.5 py-0.5 rounded text-2xs">×
+                                    {{item.count}}</span>
+                                · {{item.price| currency:'GBP'}} each
+                            </span>
+                        </div>
+                    </div>
+                    }
+
+                </div>
+
+                <div class="flex items-center justify-between px-7 py-4 bg-gray-200 border-t border-gray-300">
+                    <div class="flex items-center gap-5">
+                        <span class="flex items-center gap-1.5 text-sm text-gray-600 ">
+                            <i class="fas fa-location-dot text-base text-[#F83758]"></i>
+                            Cairo
+                        </span>
+
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-base text-gray-500">Total</span>
+                        <span class="font-bold text-2xl text-[#F83758]">{{order.totalOrderPrice |currency:"GBP"}}</span>
+                    </div>
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+    }
+    @else if(!ordersList()) {
+    <h1 class="text-center text-5xl mt-8">Your Orders List Is Empty...</h1>
+
+    }
+</section>
