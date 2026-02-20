@@ -74,7 +74,7 @@ export const routes: Routes = [
         path: 'allorders',
         loadComponent: () =>
           import('./features/allorders/allorders.component').then((c) => c.AllordersComponent),
-        title: 'Orders',
+        title: 'My Orders',
       },
       {
         path: 'details/:slug/:id',

@@ -1,9 +1,8 @@
+import { isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../cart/services/cart.service';
-import { AuthService } from '../../core/auth/Services/Authentication/auth.service';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
