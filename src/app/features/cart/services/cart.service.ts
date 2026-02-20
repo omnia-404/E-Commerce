@@ -41,18 +41,11 @@ export class CartService {
     return this.httpClient.delete<string>('https://ecommerce.routemisr.com/api/v2/cart');
   }
 
-  // checkoutSession(cartId: string | null, checkOutDetails: object): Observable<PaymentResponse> {
-  //   return this.httpClient.post<PaymentResponse>(
-  //     environment.base_url + `orders/checkout-session/${cartId}?url=http://localhost:4200`,
-  //     checkOutDetails,
-  //   );
-  // }
-
   checkoutSession(cartId: string | null, addressInfo: object): Observable<PaymentResponse> {
     const returnUrl = window.location.origin;
     return this.httpClient.post<PaymentResponse>(
       `${environment.base_url}orders/checkout-session/${cartId}?url=${encodeURIComponent(returnUrl)}`,
-      { shippingAddress: addressInfo },
+      addressInfo,
     );
   }
 }
