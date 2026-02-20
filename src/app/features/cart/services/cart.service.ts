@@ -42,7 +42,7 @@ export class CartService {
   }
 
   checkoutSession(cartId: string | null, addressInfo: object): Observable<PaymentResponse> {
-    const returnUrl = window.location.origin + '/allorders';
+    const returnUrl = window.location.origin;
     console.log(returnUrl);
 
     return this.httpClient.post<PaymentResponse>(
