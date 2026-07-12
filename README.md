@@ -2,7 +2,7 @@
 
 FreshCart is a full-featured e-commerce web application built with **Angular 21**. It offers a complete online shopping experience — browsing products, managing a cart and wishlist, checking out with Stripe, and tracking orders — wrapped in a fast, multi-language UI.
 
-**Live Demo:** [Fresh Cart ](https://e-commerce-two-ruddy-11.vercel.app/login)
+**Live Demo:** [Fresh Cart ](https://e-commerce-two-ruddy-11.vercel.app/)
 
 ---
 
